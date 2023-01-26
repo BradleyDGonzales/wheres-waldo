@@ -1,33 +1,54 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { db } from '../firebase-config.js'
-import { collection, getDocs, addDoc, updateDoc, doc, getDoc } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import mapone from '../img/mapone.jpg'
 import uniqid from 'uniqid'
-import { useFetcher } from 'react-router-dom';
+import Timer from './Timer.js';
 const MapOne = ({ mapData }) => {
 
-    const imgRef = useRef();
+    let dataCoords;
+    let currentX;
+    let currentY;
     const [currentCharacters, setCurrentCharacters] = useState(mapData.characters)
-    const [coords, setCoords] = useState({});
+    const [gameClearCheck, setGameClearCheck] = useState(false);
     const coordsCollection = collection(db, "coords");
-    // const updateCoords = async (id, numX, numY) => {
-    //     const coordDoc = doc(db, "coords", id);
-    //     const newFields = { waldoX: numX, waldoY: numY };
-    //     await updateDoc(coordDoc, newFields)
-    // }
-    // const checkPosition = (x, y) => {
-    //     if (x >= 107 && x <= 115 && y >= 65 && y <= 86) {
-    //         alert('found him');
-    //     }
-    // }
 
-    const checkCoordinates = (char) => {
-        const character = char.substring(char.lastIndexOf('/') + 1, char.indexOf('.'))
-        console.log(character);
-        console.log(currentCharacters);
+    const checkWin = () => {
+        if (currentCharacters.length === 0) {
+            setGameClearCheck(true)
+        }
+        else {
+            setGameClearCheck(false)
+        }
     }
+    const checkCoordinates = (char) => {
+        const character = char.substring(char.lastIndexOf('/') + 1, char.indexOf('.'));
+        console.log(character);
+
+
+        console.log('Min X: ', + dataCoords[0][`${character}MinX`]);
+        console.log('Max X: ', + dataCoords[0][`${character}MaxX`]);
+        console.log('Min Y: ', + dataCoords[0][`${character}MinY`]);
+        console.log('Max Y: ', + dataCoords[0][`${character}MaxY`]);
+
+        if (currentX >= dataCoords[0][`${character}MinX`] && currentX <= dataCoords[0][`${character}MaxX`] && currentY >= dataCoords[0][`${character}MinY`] && currentY <= dataCoords[0][`${character}MaxY`]) {
+            const updatedCharacters = currentCharacters.filter((char) => !char.includes(character));
+            setCurrentCharacters(updatedCharacters, () => checkWin());
+
+        }
+        else {
+            console.log('sorry, that was not ' + character)
+        }
+
+
+
+    }
+    useEffect(() =>{
+        checkWin()
+    },[currentCharacters])
+    console.log(currentCharacters);
     const togglePopUp = (e) => {
-        checkCoordinates(e.target.src)
+        checkCoordinates(e.target.src,)
         const popup = document.querySelector('.popup')
         popup.classList.remove('active')
     }
@@ -54,14 +75,13 @@ const MapOne = ({ mapData }) => {
             y: yPosition
         };
     }
-
     const charactersPopUp = (e) => {
         const parentPosition = getPosition(document.querySelector('.map'))
         const popup = document.querySelector('.popup')
         const { width, height } = e.target.getBoundingClientRect();
         const { offsetX, offsetY } = e.nativeEvent;
-        const currentX = (Math.round((offsetX / width) * 175))
-        const currentY = (Math.round((offsetY / height) * 175))
+        currentX = (Math.round((offsetX / width) * 175))
+        currentY = (Math.round((offsetY / height) * 175))
 
         const clickPositionX = e.clientX - parentPosition.x - (popup.offsetWidth / 2);
         const clickPositionY = e.clientY - parentPosition.y - (popup.offsetHeight / 2)
@@ -72,50 +92,23 @@ const MapOne = ({ mapData }) => {
         popup.classList.add('active');
         popup.style.transform = translate3DValue;
     };
-    let firebaseDataID = '';
+
+    useEffect(() => {
+        console.log('test')
+    })
+
     useEffect(() => {
         const getCoords = async () => {
             const data = await getDocs(coordsCollection);
-            const tempArray = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
-            const dataCoords = tempArray.filter((data) => data.id === 'mapone');
-            console.log(dataCoords);
+            const tempArray = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            dataCoords = tempArray.filter((data) => data.id === 'mapone');
         }
         getCoords();
-
-
-
-        // const myImg = document.getElementById('mapone')
-        // // const circle = document.getElementById('circle');
-        // const handleMouseClick = (event) => {
-        //     console.log(event);
-        //     setCoords({ id: firebaseDataID, x: event.offsetX, y: event.offsetY })
-        // };
-        // // circle.addEventListener('click', handleMouseClick);
-        // // myImg.addEventListener('click', (e) => printCoordinates(e));
-        // // return () => {
-        // //     // circle.removeEventListener('click', (e) => printCoordinates(e))
-        // //     myImg.removeEventListener('click', (e) => printCoordinates(e))
-
-        // // }
-    },[]);
-    console.log(coords);
-    // useEffect(() => {
-    //     if (Object.keys(coords).length !== 0) {
-    //         updateCoords(coords.id, coords.x, coords.y)
-    //         checkPosition(coords.x, coords.y);
-    //     }
-    // })
+    },);
 
     return (
         <div className='container'>
-            <div className="charactersToFind active">
-
-                {mapData.characters.map((char) => {
-                    return (
-                        <img key={uniqid()} className='characterIcons' alt='charLogo' src={char} />
-                    )
-                })}
-            </div>
+            <Timer gameClearCheck={gameClearCheck} />
             <div className='map'>
                 <div className='popup'>
                     <ul className='charactersToFindList'>
