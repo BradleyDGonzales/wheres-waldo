@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Modal from "./Modal";
 const Timer = ({ gameClearCheck }) => {
     console.log(gameClearCheck);
     const [seconds, setSeconds] = useState(0);
@@ -22,7 +22,15 @@ const Timer = ({ gameClearCheck }) => {
 
 
     return (
-        <div>{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}</div>
+        <>
+            <div>
+                {minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
+            </div>
+            <div>
+                {gameClearCheck === true && <Modal seconds={seconds} minutes={minutes} />}
+            </div>
+        </>
+
     )
 }
 

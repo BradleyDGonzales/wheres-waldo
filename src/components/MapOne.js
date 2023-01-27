@@ -43,9 +43,9 @@ const MapOne = ({ mapData }) => {
 
 
     }
-    useEffect(() =>{
+    useEffect(() => {
         checkWin()
-    },[currentCharacters])
+    }, [currentCharacters])
     console.log(currentCharacters);
     const togglePopUp = (e) => {
         checkCoordinates(e.target.src,)
@@ -107,27 +107,31 @@ const MapOne = ({ mapData }) => {
     },);
 
     return (
-        <div className='container'>
-            <Timer gameClearCheck={gameClearCheck} />
-            <div className='map'>
-                <div className='popup'>
-                    <ul className='charactersToFindList'>
-                        {currentCharacters.map((char) => {
-                            const characterName = char.substring(char.lastIndexOf('/') + 1, char.indexOf('.'))
-                            return (
-                                <div key={uniqid()}>
-                                    <img onClick={(e) => togglePopUp(e)} alt='charImage' key={uniqid()} src={char} width="40" height="40" />
-                                    <li key={uniqid()} className="currentCharactersToFindList">{characterName.charAt(0).toUpperCase() + characterName.slice(1)}</li>
-                                </div>
-                            )
-                        })}
-                    </ul>
+        <>
+
+            <div className='container'>
+                <Timer gameClearCheck={gameClearCheck} />
+                <div className='map'>
+                    <div className='popup'>
+                        <ul className='charactersToFindList'>
+                            {currentCharacters.map((char) => {
+                                const characterName = char.substring(char.lastIndexOf('/') + 1, char.indexOf('.'))
+                                return (
+                                    <div key={uniqid()}>
+                                        <img onClick={(e) => togglePopUp(e)} alt='charImage' key={uniqid()} src={char} width="40" height="40" />
+                                        <li key={uniqid()} className="currentCharactersToFindList">{characterName.charAt(0).toUpperCase() + characterName.slice(1)}</li>
+                                    </div>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                    <img onClick={(e) => charactersPopUp(e)} className='currentMap' id="mapone" src={mapone} alt='mapone' />
+                    <p id='x'></p>
+                    <p id='y'></p>
                 </div>
-                <img onClick={(e) => charactersPopUp(e)} className='currentMap' id="mapone" src={mapone} alt='mapone' />
-                <p id='x'></p>
-                <p id='y'></p>
-            </div>
-        </div >
+            </div >
+
+        </>
     )
 }
 
