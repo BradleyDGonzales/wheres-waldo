@@ -46,7 +46,7 @@ const MapFour = ({ mapData }) => {
     useEffect(() => {
         checkWin()
     }, [currentCharacters])
-    console.log(currentCharacters);
+
     const togglePopUp = (e) => {
         checkCoordinates(e.target.src,)
         const popup = document.querySelector('.popup')
@@ -86,8 +86,6 @@ const MapFour = ({ mapData }) => {
         const clickPositionX = e.clientX - parentPosition.x - (popup.offsetWidth / 2);
         const clickPositionY = e.clientY - parentPosition.y - (popup.offsetHeight / 2)
         let translate3DValue = "translate3d(" + (clickPositionX + 30) + "px," + clickPositionY + "px, 0)"
-        document.getElementById('x').textContent = `X: ${currentX}`
-        document.getElementById('y').textContent = `Y: ${currentY}`
 
         popup.classList.add('active');
         popup.style.transform = translate3DValue;
@@ -126,8 +124,6 @@ const MapFour = ({ mapData }) => {
                         </ul>
                     </div>
                     <img onClick={(e) => charactersPopUp(e)} className='currentMap' id="mapfour" src={mapfour} alt='mapfour' />
-                    <p id='x'></p>
-                    <p id='y'></p>
                 </div>
             </div >
 

@@ -18,6 +18,7 @@ import MapOne from './components/MapOne';
 import MapTwo from './components/MapTwo';
 import MapThree from './components/MapThree';
 import MapFour from './components/MapFour';
+import Leaderboard from './components/Leaderboard';
 
 function App() {
   const [mapData, setMapData] = useState([
@@ -42,7 +43,7 @@ function App() {
       mapName: `Where's Waldo At A Track Meet`
     }
   ])
-  
+
   return (
     <>
       <BrowserRouter>
@@ -53,6 +54,7 @@ function App() {
           <Route path='/maptwo' element={<MapTwo mapData={mapData[1]} />} />
           <Route path='/mapthree' element={<MapThree mapData={mapData[2]} />} />
           <Route path='/mapfour' element={<MapFour mapData={mapData[3]} />} />
+          <Route path='/leaderboard' element={<Leaderboard />} />
         </Routes>
       </BrowserRouter>
 

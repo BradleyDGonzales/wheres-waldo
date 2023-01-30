@@ -1,6 +1,15 @@
+@font-face {
+  font-family: 'optimaregular';
+  src: url('./fonts/optima_regular-webfont.woff') format('woff2'),
+       url('./fonts/optima_regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
 * {
   margin: 0;
   padding: 0;
+  font-family: optimaregular, "Source Sand Pro", "Arial", sans-serif;
 }
 
 html,
@@ -33,17 +42,21 @@ ul {
 .popup.active {
   display: flex;
   position: absolute;
+  border-radius: 16px;
   width: fit-content;
-  background-color: rgb(255, 207, 0);
+  background-color: rgb(54, 56, 56);
   border: 15px rgb(255, 199, 0);
   transform: translate3d(50px, 50px, 0);
+  color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar {
   align-items: center;
   background-color: #dc2626;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .levelCard {
@@ -82,7 +95,14 @@ ul {
   gap: 24px;
   /* background-color: #dc2626; */
 }
-
+#leaderboardTag {
+  color: black;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5em
+}
 .mapImage {
   /* cursor: url('./img/circle.png'), crosshair; */
   height: 300px;
@@ -121,7 +141,7 @@ ul {
 .modalContainer {
   width: 350px;
   height: 350px;
-  border-radius: 12px;
+  border-radius: 1em;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
@@ -145,6 +165,7 @@ ul {
   display: flex;
   gap: 24px;
 }
+
 .modalContainer .body {
   flex: 50%;
   display: flex;
@@ -176,4 +197,68 @@ ul {
 
 #cancelBtn {
   background-color: crimson;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: .1fr .1fr .1fr .2fr;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-left: 10em;
+  margin-right: 10em;
+}
+
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+}
+
+.properties {
+  display: grid;
+  grid-template-columns: .1fr .1fr .1fr .2fr;
+  justify-content: center;
+  background-color: #27272a;
+  margin-left: 10em;
+  margin-right: 10em;
+  justify-content: center;
+  color: white;
+
+}
+
+.leaderboardContainer {
+  height: 100vh;
+  background-color: #e2e8f0;
+}
+
+.timer {
+  padding: 1em;
+  border-radius: 16px;
+  font-size: 1.2em;
+  background-color: #27272a;
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+.charactersToFindList {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+}
+
+#selectSubmitButton,
+#selectMapButton {
+  padding: .5em;
+  border: none;
+  border-radius: 1em;
+  background-color: #27272a;
+  color: white;
+  box-shadow: 1em;
+
 }

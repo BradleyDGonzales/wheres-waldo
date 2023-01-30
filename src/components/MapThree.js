@@ -86,8 +86,6 @@ const MapThree = ({ mapData }) => {
         const clickPositionX = e.clientX - parentPosition.x - (popup.offsetWidth / 2);
         const clickPositionY = e.clientY - parentPosition.y - (popup.offsetHeight / 2)
         let translate3DValue = "translate3d(" + (clickPositionX + 30) + "px," + clickPositionY + "px, 0)"
-        document.getElementById('x').textContent = `X: ${currentX}`
-        document.getElementById('y').textContent = `Y: ${currentY}`
 
         popup.classList.add('active');
         popup.style.transform = translate3DValue;
@@ -126,8 +124,6 @@ const MapThree = ({ mapData }) => {
                         </ul>
                     </div>
                     <img onClick={(e) => charactersPopUp(e)} className='currentMap' id="mapthree" src={mapthree} alt='mapthree' />
-                    <p id='x'></p>
-                    <p id='y'></p>
                 </div>
             </div >
 

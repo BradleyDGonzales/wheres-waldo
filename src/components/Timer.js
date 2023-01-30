@@ -23,7 +23,7 @@ const Timer = ({ gameClearCheck }) => {
 
     return (
         <>
-            <div>
+            <div className="timer">
                 {minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
             </div>
             <div>
