@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Where's Waldo At Home
+<h3>Summary</h3>
+<p>This was the backend project for <a href="https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/where-s-waldo-a-photo-tagging-app" target="_blank" rel="noopener noreferrer">The Odin Project's</a> JavaScript curriculum. The goal of the project is to create a 'Wheres Waldo' type of game that incorporates a backend (in this case Firebase). Players select a level and must find the four hidden characters. The characters coordinates are used to identify their location in the level, selecting the correct coordinates (along with the character) will remove the player from the list of characters to find. Firebase is used as a backend to store the game data and time for each level. This project as made with the React JS Library, CSS, HTML, JavaScript, and Firebase.</p>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
