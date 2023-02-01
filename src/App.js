@@ -4,7 +4,7 @@ import { db } from './firebase-config'
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore'
 import NavBar from './components/NavBar.js'
 import SelectMap from './components/SelectMap.js'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import mapone from './img/mapone.jpg'
 import maptwo from './img/maptwo.jpg'
 import mapthree from './img/mapthree.jpg'
@@ -50,6 +50,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<SelectMap mapData={mapData} />} />
+          <Route path="/wheres-waldo" element={<Navigate to="/" />} />
           <Route path='/mapone' element={<MapOne mapData={mapData[0]} />} />
           <Route path='/maptwo' element={<MapTwo mapData={mapData[1]} />} />
           <Route path='/mapthree' element={<MapThree mapData={mapData[2]} />} />

@@ -11,7 +11,8 @@ const Modal = ({ seconds, minutes }) => {
     const leaderboardCollection = collection(db, "leaderboard");
 
 
-    const sendToLeaderboard = async () => {
+    const sendToLeaderboard = async (e) => {
+        console.log(e);
         const selectInput = document.getElementById('myName');
         console.log(selectInput);
         console.log(name);
@@ -48,8 +49,8 @@ const Modal = ({ seconds, minutes }) => {
                         <Link to={'/'}>
                             <button id="selectMapButton" >Select Map</button>
                         </Link>
-                        <Link onClick={() => sendToLeaderboard()} state={{ seconds, minutes }} to={'/leaderboard'}>
-                            <button id="selectSubmitButton">Submit</button>
+                        <Link onClick={(e) => sendToLeaderboard(e)} state={{ seconds, minutes }} to={'/leaderboard'}>
+                            <button disabled={!name} id="selectSubmitButton">Submit</button>
                         </Link>
                     </div>
                 </div>
