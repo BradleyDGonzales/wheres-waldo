@@ -22,7 +22,7 @@ const MapTwo = ({ mapData }) => {
         }
     }
     const checkCoordinates = (char) => {
-        const character = char.substring(char.lastIndexOf('/') + 1, char.indexOf('.'));
+        const character = char.substring(char.lastIndexOf('/') + 1).split('.')[0]
         console.log(character);
 
 
