@@ -32,7 +32,7 @@ const MapFour = ({ mapData }) => {
         console.log('Max Y: ', + dataCoords[0][`${character}MaxY`]);
 
         if (currentX >= dataCoords[0][`${character}MinX`] && currentX <= dataCoords[0][`${character}MaxX`] && currentY >= dataCoords[0][`${character}MinY`] && currentY <= dataCoords[0][`${character}MaxY`]) {
-            const updatedCharacters = currentCharacters.filter((char) => !char.includes(character));
+            const updatedCharacters = currentCharacters.filter((char) => !(char.substring(char.lastIndexOf('/') + 1).split('.')[0]).includes(character));
             setCurrentCharacters(updatedCharacters, () => checkWin());
 
         }
@@ -90,11 +90,7 @@ const MapFour = ({ mapData }) => {
         popup.classList.add('active');
         popup.style.transform = translate3DValue;
     };
-
-    useEffect(() => {
-        console.log('test')
-    })
-
+    
     useEffect(() => {
         const getCoords = async () => {
             const data = await getDocs(coordsCollection);

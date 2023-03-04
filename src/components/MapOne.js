@@ -9,7 +9,7 @@ const MapOne = ({ mapData }) => {
     let dataCoords;
     let currentX;
     let currentY;
-    const [currentCharacters, setCurrentCharacters] = useState(mapData.characters)
+    const [currentCharacters, setCurrentCharacters] = useState(mapData.characters);
     const [gameClearCheck, setGameClearCheck] = useState(false);
     const coordsCollection = collection(db, "coords");
 
@@ -32,7 +32,7 @@ const MapOne = ({ mapData }) => {
         console.log('Max Y: ', + dataCoords[0][`${character}MaxY`]);
 
         if (currentX >= dataCoords[0][`${character}MinX`] && currentX <= dataCoords[0][`${character}MaxX`] && currentY >= dataCoords[0][`${character}MinY`] && currentY <= dataCoords[0][`${character}MaxY`]) {
-            const updatedCharacters = currentCharacters.filter((char) => !char.includes(character));
+            const updatedCharacters = currentCharacters.filter((char) => !(char.substring(char.lastIndexOf('/') + 1).split('.')[0]).includes(character));
             setCurrentCharacters(updatedCharacters, () => checkWin());
 
         }
@@ -45,8 +45,8 @@ const MapOne = ({ mapData }) => {
     }
     useEffect(() => {
         checkWin()
-    }, [currentCharacters])
-    console.log(currentCharacters);
+    },[currentCharacters])
+
     const togglePopUp = (e) => {
         checkCoordinates(e.target.src,)
         const popup = document.querySelector('.popup')
@@ -91,9 +91,6 @@ const MapOne = ({ mapData }) => {
         popup.style.transform = translate3DValue;
     };
 
-    useEffect(() => {
-        console.log('test')
-    })
 
     useEffect(() => {
         const getCoords = async () => {
